@@ -1,0 +1,18 @@
+[name=header] input { width:45px; padding-left: 5px; padding-right: 5px; margin-left: 5px; }
+.jumbotron { text-align: center; }
+.list-unstyled { text-align: center; }
+.lazy-prediction { margin-top: 10px; }
+.pagination { margin: 0; }
+.pagination a { width:50px; }
+.tooltip { width:250px; }
+
+[data-refresh=unique] { 
+	text-align: center; 
+	cursor: pointer; 
+	user-select: none; 
+	-moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+    -ms-user-select: none;
+}

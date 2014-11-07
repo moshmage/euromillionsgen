@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/the.css">
+	</head>
+	<body>
+		<section name="header">
+			<div class="jumbotron">
+				<div class="container">
+					<h2><input class="howManyKeys" maxlength="2" /> chaves do Euro Milhoes <button class="refresh btn btn-default">mudar chaves</button></h2>
+					<div class="last-key-spot"><h4>Ultima Chave Vencedora</h4><ul class="list-unstyled"></ul></div>
+					<div class="btn-group">
+						<button class="btn btn-info btn-xs lazyPrediction">prever chave</button>
+						<button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Esta previsão é feita com a contagem do maior numero de ocurrencias em todas as chaves passadas.">?</button>
+					</div>
+					<div class="lazy-prediction"><ul class="list-unstyled"></ul></div>
+				</div>
+			</div>
+		</section>
+		<section name="content">
+			<div class="container"><div class="row"><ul class="list-unstyled"></ul></div></div>
+		</section>
+		<section name="footer"></section>
+
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
