@@ -158,7 +158,7 @@ $(function() {
 			number = $('.numbers',options).val(),
 			stars = $('.stars',options).val();
 		localStorage.setItem('emStrgNumbersQuota',number);
-		localStorage.setItem('emStrgNumbersQuota',stars);
+		localStorage.setItem('emStrgStarsQuota',stars);
 		spawnElements(false);
 	});
 	spawnElements(false);
