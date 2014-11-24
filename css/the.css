@@ -6,7 +6,7 @@
 .pagination a { width:50px; }
 .tooltip { width:250px; }
 
-[data-refresh=unique] { 
+[data-refresh=unique],.santacasa { 
 	text-align: center; 
 	cursor: pointer; 
 	user-select: none; 

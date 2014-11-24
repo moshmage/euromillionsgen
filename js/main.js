@@ -20,16 +20,15 @@ $(function() {
 				while(z === 0 || z === prevZ) { z = Math.floor(Math.random()*mainNumbersUnit); }
 				prevZ = z;
 				mainNumberString += '<li><a class="euro-key">'+z+'</a></li>';
-
 			}
 			prevZ = 0;
 			for (y = luckyStar; y > 0; y--) {
 				z = Math.floor(Math.random()*luckyStarUnit);
 				while(z === 0 || z === prevZ) { z = Math.floor(Math.random()*luckyStarUnit); }
 				prevZ = z;
-				luckyStarString += '<li class="active"><a class="euro-key">'+z+'</a></li>';
+				luckyStarString += '<li class="active"><a class="euro-star">'+z+'</a></li>';
 			}
-			keyString = mainNumberString+''+luckyStarString+'<li class="refresh" data-refresh="unique"><a>R</a></li>';
+			keyString = mainNumberString+''+luckyStarString+'<li class="refresh" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li><li class="santacasa"><a class="glyphicon glyphicon-usd"></a></li>';
 			return keyString;
 		},
 		spawnElements = function(howMany) {
@@ -53,6 +52,7 @@ $(function() {
 			$.each(object.stars,function(){
 				string += '<li class="active"><a class="euro-key">'+this+'</a></li>';
 			});
+			string += '</ul></li>';
 			string += '</ul></li>';
 			if (lastKey === false) $('.lazy-prediction .list-unstyled').append(string);
 			else $('.last-key-spot .list-unstyled').append(string);
@@ -112,6 +112,18 @@ $(function() {
 				object.stars = stars;
 				constructLazyPrediction(object,true);
 			});
+		},
+		gotoSantaCasa = function(element) {
+			var _this,key2send={"key":[],"stars":[]},scString;
+			$('li',element).each(function(){
+				_this = $('.euro-key,.euro-star',$(this));
+				if (_this.length > 0) {
+					if (_this.hasClass('euro-key')) key2send.key.push(_this.text());
+					else key2send.stars.push(_this.text());
+				}
+			});
+			scString = JSON.stringify(key2send);
+			window.open('https://www.jogossantacasa.pt/web/JogarEuromilhoes/#'+scString,'emSantaCasa');
 		};
 		
 	$('body').on('click','.refresh',function() {
@@ -132,6 +144,10 @@ $(function() {
 	});
 	$('.lazyPrediction').on('click',function(){lazyPredictKey();});
 	$('[data-toggle=tooltip]').tooltip();
+	$('body').on('click','.santacasa',function(){
+		gotoSantaCasa($(this).parent());
+	});
 	spawnElements(false);
 	getLastWinningKey();
+
 });
