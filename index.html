@@ -7,7 +7,8 @@
 	</head>
 	<body>
 		<section name="header">
-		<a href="https://openuserjs.org/scripts/moshmagegmail.com/auto-click_euro-milhoes_santa-casa" data-toggle="tooltip" data-placement="bottom" title="UserScript para usar a chave selecionada no site da santa-casa" class="btn btn-primary glyphicon glyphicon-cloud-download" style="position:absolute;right:1px;"></a>
+		<a href="https://openuserjs.org/scripts/moshmagegmail.com/auto-click_euro-milhoes" data-toggle="tooltip" data-placement="bottom" title="UserScript para usar a chave selecionada no site da santa-casa" class="btn btn-primary glyphicon glyphicon-cloud-download far-right"></a>
+		<a class="btn btn-primary glyphicon glyphicon-cog far-right less-right options" href="#options" data-toggle="modal"></a>
 			<div class="jumbotron">
 				<div class="container">
 					<h2><input class="howManyKeys" maxlength="2" /> chaves do Euro Milhoes <button class="refresh btn btn-default">mudar chaves</button></h2>
@@ -24,6 +25,26 @@
 			<div class="container"><div class="row"><ul class="list-unstyled"></ul></div></div>
 		</section>
 		<section name="footer"></section>
+
+		<div id="options" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Configurar</h3>
+			</div>
+			<div class="modal-body center">
+				<p><strong>Numeros</strong></p>
+				<input value="" class="numbers form-control">
+				<p><strong>Estrelas</strong></p>
+				<input value="" class="stars form-control">
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Gravar</button>
+			</div>
+		</div>
+		</div>
+		</div>
 
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

@@ -1,31 +1,33 @@
 $(function() {
 
-	var totalKeys = 5,
+	var totalKeys = 5, optNumber = localStorage.getItem('emStrgNumbersQuota') || 5, optStars = localStorage.getItem('emStrgStarsQuota') || 2,
 		refreshKeys = function(element) {
+			var toptNumber = $('#options input.numbers').val() || false,
+				toptStars = $('#options input.stars').val() || false;
 			if (element === false) { element = $('.euro-key'); }
 			$(element).each(function() {
-				$(this).html(spawnKey());
+				$(this).html(spawnKey(toptNumber,toptStars));
 			});
 		},
-		spawnKey = function() {
-			var mainNumbers 		= 5,
+		spawnKey = function(optNumber,optStars) {
+			var mainNumbers 		= optNumber || 5,
 				mainNumbersUnit 	= 51,
-				luckyStar 			= 2,
+				luckyStar 			= optStars || 2,
 				luckyStarUnit 		= 12,
 				mainNumberString 	= '',
 				luckyStarString		= '',
-				x,y,z,prevZ=0,keyString;
+				x,y,z,prevZ=[],keyString;
 			for (x = mainNumbers; x > 0; x--) {
 				z = Math.floor(Math.random()*mainNumbersUnit);
-				while(z === 0 || z === prevZ) { z = Math.floor(Math.random()*mainNumbersUnit); }
-				prevZ = z;
+				while(z === 0 || prevZ.indexOf(z) > -1) { z = Math.floor(Math.random()*mainNumbersUnit); }
+				prevZ.push(z);
 				mainNumberString += '<li><a class="euro-key">'+z+'</a></li>';
 			}
-			prevZ = 0;
+			prevZ = [];
 			for (y = luckyStar; y > 0; y--) {
 				z = Math.floor(Math.random()*luckyStarUnit);
-				while(z === 0 || z === prevZ) { z = Math.floor(Math.random()*luckyStarUnit); }
-				prevZ = z;
+				while(z === 0 || prevZ.indexOf(z) > -1) { z = Math.floor(Math.random()*luckyStarUnit); }
+				prevZ.push(z);
 				luckyStarString += '<li class="active"><a class="euro-star">'+z+'</a></li>';
 			}
 			keyString = mainNumberString+''+luckyStarString+'<li class="refresh" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li><li class="santacasa"><a class="glyphicon glyphicon-usd"></a></li>';
@@ -33,12 +35,14 @@ $(function() {
 		},
 		spawnElements = function(howMany) {
 			var string = '',
-				elementSpot = $('[name=content] .row ul');
+				elementSpot = $('[name=content] .row ul'),
+				toptNumber = $('#options input.numbers').val() || false,
+				toptStars = $('#options input.stars').val() || false;
 			if (howMany === false) { howMany = totalKeys; }
 			elementSpot.empty();
 			$('.howManyKeys').val(howMany);
 			while (howMany > 0) {
-				string += '<li class=""><ul class="pagination">'+spawnKey()+'</ul></li>';
+				string += '<li class=""><ul class="pagination">'+spawnKey(toptNumber,toptStars)+'</ul></li>';
 				howMany--;
 			}
 			elementSpot.append(string);
@@ -146,6 +150,16 @@ $(function() {
 	$('[data-toggle=tooltip]').tooltip();
 	$('body').on('click','.santacasa',function(){
 		gotoSantaCasa($(this).parent());
+	});
+	$('#options .numbers').val(optNumber);
+	$('#options .stars').val(optStars);
+	$('#options .btn').on('click',function(){
+		var options = $('#options'),
+			number = $('.numbers',options).val(),
+			stars = $('.stars',options).val();
+		localStorage.setItem('emStrgNumbersQuota',number);
+		localStorage.setItem('emStrgNumbersQuota',stars);
+		spawnElements(false);
 	});
 	spawnElements(false);
 	getLastWinningKey();

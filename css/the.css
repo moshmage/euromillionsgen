@@ -1,11 +1,15 @@
 [name=header] input { width:45px; padding-left: 5px; padding-right: 5px; margin-left: 5px; }
+#options input { width:45px; text-align: center;}
 .jumbotron { text-align: center; }
 .list-unstyled { text-align: center; }
 .lazy-prediction { margin-top: 10px; }
 .pagination { margin: 0; }
 .pagination a { width:50px; }
 .tooltip { width:250px; }
-
+.far-right { position: absolute;right: 1px;}
+.less-right { right: 45px;}
+.center { text-align: center; }
+.center .form-control { display: inline-block; }
 [data-refresh=unique],.santacasa { 
 	text-align: center; 
 	cursor: pointer; 
