@@ -1,4 +1,4 @@
-[name=header] input { width:45px; padding-left: 5px; padding-right: 5px; margin-left: 5px; }
+[name=header] input { width:45px; padding-left: 5px; padding-right: 5px; margin-left: 5px; border-radius: 4px; border: 1px solid #ccc; text-align: center; }
 #options input { width:45px; text-align: center;}
 .jumbotron { text-align: center; }
 .list-unstyled { text-align: center; }
@@ -10,7 +10,31 @@
 .less-right { right: 45px;}
 .center { text-align: center; }
 .center .form-control { display: inline-block; }
+li.orange > a {background-color: #f0ad4e; border: 1px solid #eee236; color: white;}
+li.orange:hover > a { background-color: #ec971f; border: 1px solid #d58512; color: white;}
+li.green > a {background-color: #5cb85c; border: 1px solid #4cae4c; color: white;}
+li.green > a:hover { background-color: #449d44; border: 1px solid #398439; color: white;}
+li.refresh > a,li.santacasa > a {top: 0px;}
+.navbar { margin-bottom: 0px; }
+.last-key-spot {top: 7px;position: relative;}
+.morethanfive {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 3px;
+}
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
 [data-refresh=unique],.santacasa { 
+	top: 0px;
 	text-align: center; 
 	cursor: pointer; 
 	user-select: none; 

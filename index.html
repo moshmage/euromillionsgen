@@ -6,23 +6,42 @@
 		<link rel="stylesheet" href="css/the.css">
 	</head>
 	<body>
+		<div class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Gerador de Euro-Milhoes</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="https://github.com/moshmage/euromillionsgen"><span class="glyphicon glyphicon-edit"></span> Github</a></li>
+					<li></li>
+					<li><a href="#">Ultima Chave Vencedora</a></li>
+					<li><div class="last-key-spot"><ul class="list-unstyled"></ul></div></li>
+					<li></li>
+				</ul>
+			 	<ul class="nav navbar-nav navbar-right">
+			    	<li class=""><a href="#script" data-toggle="modal" class="glyphicon glyphicon-cloud-download"></a></li>
+			    	<li><a class="glyphicon glyphicon-cog options" href="#options" data-toggle="modal"></a></li>
+			    	<li class="divider"></li>
+				</ul>
+			</div>
+		</div>
 		<section name="header">
-		<a href="https://openuserjs.org/scripts/moshmagegmail.com/auto-click_euro-milhoes" data-toggle="tooltip" data-placement="bottom" title="UserScript para usar a chave selecionada no site da santa-casa" class="btn btn-primary glyphicon glyphicon-cloud-download far-right"></a>
-		<a class="btn btn-primary glyphicon glyphicon-cog far-right less-right options" href="#options" data-toggle="modal"></a>
 			<div class="jumbotron">
 				<div class="container">
-					<h2><input class="howManyKeys" maxlength="2" /> chaves do Euro Milhoes <button class="refresh btn btn-default">mudar chaves</button></h2>
-					<div class="last-key-spot"><h4>Ultima Chave Vencedora</h4><ul class="list-unstyled"></ul></div>
-					<div class="btn-group">
-						<button class="btn btn-info btn-xs lazyPrediction">prever chave</button>
-						<button type="button" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Esta previsão é feita com a contagem do maior numero de ocurrencias em todas as chaves passadas.">?</button>
-					</div>
-					<div class="lazy-prediction"><ul class="list-unstyled"></ul></div>
+					<h3>
+						<input class="howManyKeys" maxlength="2" /> chaves do Euro Milhoes 
+						<div class="btn-group">
+							<button class="refresh btn btn-default">Gerar chave</button>
+							<a class="btn btn-info" href="#lazypred" data-toggle="modal">Prever</a>
+							<a class="btn btn-info" href="#about" data-toggle="modal">?</a>
+						</div>
+					</h3>
+					
 				</div>
 			</div>
 		</section>
 		<section name="content">
-			<div class="container"><div class="row"><ul class="list-unstyled"></ul></div></div>
+			<div class="col-xs-12 content"><div class="row row-centered"><ul class="list-unstyled"></ul></div></div>
 		</section>
 		<section name="footer"></section>
 
@@ -46,6 +65,75 @@
 		</div>
 		</div>
 
+		<div id="script" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Script para Santa-Casa</h3>
+			</div>
+			<div class="modal-body">
+				<p>Com este <i>addin</i> poderá clicar no botão verde e será levado para o site de apostas da santa-casa e a aposta será automaticamente feita, tendo só que fazer o login e apostar.</p>
+				<a href="https://openuserjs.org/scripts/moshmagegmail.com/auto-click_euro-milhoes" class="btn btn-primary">Página do Addin</a>
+				<p>
+					<h3>Como instalar o Addin</h3>
+					<ul class="">
+						<li>Fazer download do a <a href="http://tampermonkey.net/" target="_blank">Tampermonkey para o Chrome</a></li>
+						<li>Clicar em "Tampermonkey Stable" (primeiro dos quatro botões quadrados)</li>
+						<li><a href="https://openuserjs.org/scripts/moshmagegmail.com/auto-click_euro-milhoes" class="btn btn-info btn-xs" target="_blank">Página do Addin</a></li>
+						<li>Clicar "install"</li>
+						<li>Fechar e abrir browser</li>
+					</ul>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<div id="lazypred" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Previsão preguiçosa</h3>
+			</div>
+			<div class="modal-body">
+				<p>Esta previsão é feita com a contagem do maior numero de ocurrencias de todos os numeros em todas as chaves passadas, não é nenhuma formula matematica e pode ver como é feita no <a href="https://github.com/moshmage/euromillionsgen">Github</a>.</p>
+				<button class="btn btn-info lazyPrediction">Prever</button>
+				<div class="lazy-prediction"><ul class="list-unstyled"></ul></div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<div id="about" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xs">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Acerca de..</h3>
+			</div>
+			<div class="modal-body">
+				<p>Este website usa <a href="https://developer.mozilla.org/docs/Web/JavaScript">JavaScript</a>, <a href="http://jquery.com/">jQuery</a> e <a href="http://getbootstrap.com/">Bootstrap</a></p>
+				<p>Agradecimentos ao <a href="https://nunofcguerreiro.com" target="_blank">Nunco F.C. Guerreiro</a> pela API do Euro-Milhões</p>
+				<p>Fork, Fix, Merge ou Hoard @ <a href="https://github.com/moshmage/euromillionsgen">Github</a></p>
+				<small>o website não se resposabiliza pelas chaves produzidas</small>
+			</div>
+			<div class="modal-footer">
+				
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<div class=""></div>
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 		<script src="js/main.js"></script>

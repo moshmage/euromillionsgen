@@ -1,6 +1,6 @@
 $(function() {
 
-	var totalKeys = 5, optNumber = localStorage.getItem('emStrgNumbersQuota') || 5, optStars = localStorage.getItem('emStrgStarsQuota') || 2,
+	var totalKeys = 20, optNumber = localStorage.getItem('emStrgNumbersQuota') || 5, optStars = localStorage.getItem('emStrgStarsQuota') || 2,
 		refreshKeys = function(element) {
 			var toptNumber = $('#options input.numbers').val() || false,
 				toptStars = $('#options input.stars').val() || false;
@@ -16,7 +16,8 @@ $(function() {
 				luckyStarUnit 		= 12,
 				mainNumberString 	= '',
 				luckyStarString		= '',
-				x,y,z,prevZ=[],keyString;
+				x,y,z,prevZ=[],keyString,
+				refreshString,santaCasaString;
 			for (x = mainNumbers; x > 0; x--) {
 				z = Math.floor(Math.random()*mainNumbersUnit);
 				while(z === 0 || prevZ.indexOf(z) > -1) { z = Math.floor(Math.random()*mainNumbersUnit); }
@@ -30,22 +31,32 @@ $(function() {
 				prevZ.push(z);
 				luckyStarString += '<li class="active"><a class="euro-star">'+z+'</a></li>';
 			}
-			keyString = mainNumberString+''+luckyStarString+'<li class="refresh" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li><li class="santacasa"><a class="glyphicon glyphicon-usd"></a></li>';
+			refreshString = '<li class="refresh orange" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li>';
+			santaCasaString = '<li class="santacasa green"><a class="glyphicon glyphicon-usd"></a></li>';
+			keyString = refreshString+''+mainNumberString+''+luckyStarString+''+santaCasaString;
 			return keyString;
 		},
 		spawnElements = function(howMany) {
 			var string = '',
 				elementSpot = $('[name=content] .row ul'),
 				toptNumber = $('#options input.numbers').val() || false,
-				toptStars = $('#options input.stars').val() || false;
+				toptStars = $('#options input.stars').val() || false,
+				morethanfive = false;
 			if (howMany === false) { howMany = totalKeys; }
+			if (howMany > 5) morethanfive = true;
 			elementSpot.empty();
 			$('.howManyKeys').val(howMany);
 			while (howMany > 0) {
-				string += '<li class=""><ul class="pagination">'+spawnKey(toptNumber,toptStars)+'</ul></li>';
+				string += '<li class="makeshift-col"><ul class="pagination">'+spawnKey(toptNumber,toptStars)+'</ul></li>';
 				howMany--;
 			}
 			elementSpot.append(string);
+			if (morethanfive == true) {
+				console.log('this was called');
+				$('.content .pagination').toggleClass('morethanfive');
+				$('.content .list-unstyled li:nth-child(5n) ul').css('clear','right');
+				$('.content .makeshift-col').toggleClass('col-centered');
+			}
 		},
 		constructLazyPrediction = function(object,lastKey) {
 			var	string = '<li class="predictionKey"><ul class="pagination">';
@@ -134,7 +145,8 @@ $(function() {
 		var _this = $(this),
 			_howMany = _this.siblings('.howManyKeys').val();
 		if (_howMany !== undefined) {
-			if (_howMany !== totalKeys) {
+			if (_this.hasClass('btn')) {
+				console.log('not equal to totalkeys '+_howMany+' vs '+totalKeys);
 				spawnElements(_howMany);
 				return false;
 			}
