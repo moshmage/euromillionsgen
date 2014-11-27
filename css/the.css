@@ -14,7 +14,7 @@ li.orange > a {background-color: #f0ad4e; border: 1px solid #eee236; color: whit
 li.orange:hover > a { background-color: #ec971f; border: 1px solid #d58512; color: white;}
 li.green > a {background-color: #5cb85c; border: 1px solid #4cae4c; color: white;}
 li.green > a:hover { background-color: #449d44; border: 1px solid #398439; color: white;}
-li.refresh > a,li.santacasa > a {top: 0px;}
+li.refresh > a,li.santacasa > a, .btn-group a.glyphicon {top: 0px;}
 .navbar { margin-bottom: 0px; }
 .last-key-spot {top: 7px;position: relative;}
 .morethanfive {

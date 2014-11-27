@@ -143,13 +143,11 @@ $(function() {
 		
 	$('body').on('click','.refresh',function() {
 		var _this = $(this),
-			_howMany = _this.siblings('.howManyKeys').val();
+			_howMany = $('.howManyKeys',_this.parent().parent()).val();
 		if (_howMany !== undefined) {
-			if (_this.hasClass('btn')) {
-				console.log('not equal to totalkeys '+_howMany+' vs '+totalKeys);
-				spawnElements(_howMany);
-				return false;
-			}
+			console.log('not equal to totalkeys '+_howMany+' vs '+totalKeys);
+			spawnElements(_howMany);
+			return false;
 		}
 		if (_this.attr('data-refresh') === "unique") { refreshKeys(_this.closest('.pagination')) }
 		else refreshKeys(false); 
