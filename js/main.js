@@ -1,40 +1,14 @@
+if (localStorage.getItem('emStrgNumbersQuota') >= 50) localStorage.setItem('emStrgNumbersQuota','50');
+if (localStorage.getItem('emStrgStarsQuota') >= 11) localStorage.setItem('emStrgStarsQuota','11');
 $(function() {
-
 	var totalKeys = 20, optNumber = localStorage.getItem('emStrgNumbersQuota') || 5, optStars = localStorage.getItem('emStrgStarsQuota') || 2,
 		refreshKeys = function(element) {
 			var toptNumber = $('#options input.numbers').val() || false,
 				toptStars = $('#options input.stars').val() || false;
 			if (element === false) { element = $('.euro-key'); }
 			$(element).each(function() {
-				$(this).html(spawnKey(toptNumber,toptStars));
+				$(this).html(buildKeyList(toptNumber,toptStars));
 			});
-		},
-		spawnKey = function(optNumber,optStars) {
-			var mainNumbers 		= optNumber || 5,
-				mainNumbersUnit 	= 51,
-				luckyStar 			= optStars || 2,
-				luckyStarUnit 		= 12,
-				mainNumberString 	= '',
-				luckyStarString		= '',
-				x,y,z,prevZ=[],keyString,
-				refreshString,santaCasaString;
-			for (x = mainNumbers; x > 0; x--) {
-				z = Math.floor(Math.random()*mainNumbersUnit);
-				while(z === 0 || prevZ.indexOf(z) > -1) { z = Math.floor(Math.random()*mainNumbersUnit); }
-				prevZ.push(z);
-				mainNumberString += '<li><a class="euro-key">'+z+'</a></li>';
-			}
-			prevZ = [];
-			for (y = luckyStar; y > 0; y--) {
-				z = Math.floor(Math.random()*luckyStarUnit);
-				while(z === 0 || prevZ.indexOf(z) > -1) { z = Math.floor(Math.random()*luckyStarUnit); }
-				prevZ.push(z);
-				luckyStarString += '<li class="active"><a class="euro-star">'+z+'</a></li>';
-			}
-			refreshString = '<li class="refresh orange" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li>';
-			santaCasaString = '<li class="santacasa green"><a class="glyphicon glyphicon-usd"></a></li>';
-			keyString = refreshString+''+mainNumberString+''+luckyStarString+''+santaCasaString;
-			return keyString;
 		},
 		spawnElements = function(howMany) {
 			var string = '',
@@ -47,7 +21,7 @@ $(function() {
 			elementSpot.empty();
 			$('.howManyKeys').val(howMany);
 			while (howMany > 0) {
-				string += '<li class="makeshift-col"><ul class="pagination">'+spawnKey(toptNumber,toptStars)+'</ul></li>';
+				string += '<li class="makeshift-col"><ul class="pagination">'+buildKeyList(toptNumber,toptStars)+'</ul></li>';
 				howMany--;
 			}
 			elementSpot.append(string);
@@ -83,6 +57,7 @@ $(function() {
 					numberString += this.numbers+' ';
 					starString += this.stars+' ';
 				});
+
 				for (x = 50; x > 0; x--) {
 					c = new RegExp("\\b"+x+"\\b","g");
 					//var x=1, c = ; 
@@ -92,29 +67,9 @@ $(function() {
 						countStars[""+x] = starString.match(c).length;
 					}
 				}
-				while (turns > 0) {
-					if (theKey) delete countNumber[theKey];
-					oldMax = 0;
-					for (x = 50; x > 0; x--) {
-						theVal = countNumber[x];
-						if (theVal > oldMax) { oldMax = theVal; theKey = x; }
-						if (x === 1) { lazyNumbers.push(theKey); }
-					}
-					turns--;
-				}
-				turns = 2;
-				while (turns > 0) {
-					if (theKey) delete countStars[theKey];
-					oldMax = 0;
-					for (x = 12; x > 0; x--) {
-						theVal = countStars[x];
-						if (theVal > oldMax) { oldMax = theVal; theKey = x; }
-						if (x === 1) { lazyStars.push(theKey); }
-					}
-					turns--;
-				}
-				returnObj.numbers = lazyNumbers;
-				returnObj.stars = lazyStars; 
+				returnObj.numbers = returnBiggestCount(countNumber,5,51);
+				returnObj.stars = returnBiggestCount(countStars,2,12);
+				
 				constructLazyPrediction(returnObj,false);
 			});
 		},
@@ -145,7 +100,6 @@ $(function() {
 		var _this = $(this),
 			_howMany = $('.howManyKeys',_this.parent().parent()).val();
 		if (_howMany !== undefined) {
-			console.log('not equal to totalkeys '+_howMany+' vs '+totalKeys);
 			spawnElements(_howMany);
 			return false;
 		}
@@ -167,11 +121,77 @@ $(function() {
 		var options = $('#options'),
 			number = $('.numbers',options).val(),
 			stars = $('.stars',options).val();
+		if (stars >= 11) stars = 11;
+		if (number >= 50) number = 50;
 		localStorage.setItem('emStrgNumbersQuota',number);
 		localStorage.setItem('emStrgStarsQuota',stars);
 		spawnElements(false);
 	});
-	spawnElements(false);
-	getLastWinningKey();
+
+
+	
+function returnBiggestCount(countObject, turns, max) {
+	var turns, lazyNumbers, theVal, theKey, oldMax, x;
+	while (turns > 0) {
+		if (theKey) delete countObject[theKey];
+		oldMax = 0;
+		for (x = max; x > 0; x--) {
+			theVal = countObject[x];
+			if (theVal > oldMax) { oldMax = theVal; theKey = x; }
+			if (x === 1) { lazyNumbers.push(theKey); }
+		}
+		turns--;
+	}
+	return lazyNumbers;
+}
+
+function randomMe(times,maxVal) {
+	var x,z,list=[];
+	for (x = times; x > 0; x--) {
+		z = Math.floor(Math.random()*maxVal);
+		while(z === 0 || list.indexOf(z) > -1) { z = Math.floor(Math.random()*maxVal); }
+		list.push(z);
+	}
+	return list;
+}
+function buildKeyElementString(list,active,_class) {
+	var string='',x,active= (active !== false) ? 'active' : '';
+	for (x = 0; x < list.length; x++) {
+		string += '<li class="'+active+'""><a class="'+_class+'">'+list[x]+'</a></li>'	
+	}
+	return string;
+}
+function buildKeyList(optNumber,optStars) {
+	var howManyNumbers 		= optNumber || 5,
+		howManyNumbersUnit 	= 51,
+		howManyStars		= optStars || 2,
+		howManyStarsUnit 	= 11,
+		keys 				= {"keys":[],"stars":[]},
+		mainNumberString 	= '',
+		luckyStarString		= '',
+		keyString,refreshString,santaCasaString;
+
+	if (howManyStars >= 11) { localStorage.setItem('emStrgStarsQuota',11); howManyStars = 11; }
+	if (howManyNumbers >= 50) { localStorage.setItem('emStrgNumbersQuota',50); howManyNumbers = 50; }
+
+	keys.numbers = randomMe(howManyNumbers,howManyNumbersUnit);
+	keys.numbers.sort(function(a,b){return (a - b)});
+
+	keys.stars = randomMe(howManyStars,howManyStarsUnit);
+	keys.stars.sort(function(a,b){return (a - b)});
+	
+	mainNumberString = buildKeyElementString(keys.numbers,false,'euro-key');
+	luckyStarString = buildKeyElementString(keys.stars,true,'euro-star');
+	
+	refreshString = '<li class="refresh orange" data-refresh="unique"><a class="glyphicon glyphicon-refresh"></a></li>';
+	santaCasaString = '<li class="santacasa green"><a class="glyphicon glyphicon-usd"></a></li>';
+	keyString = refreshString+''+mainNumberString+''+luckyStarString+''+santaCasaString;
+
+	return keyString;
+}
+
+spawnElements(false);
+getLastWinningKey();
+
 
 });
