@@ -131,7 +131,7 @@ $(function() {
 
 	
 function returnBiggestCount(countObject, turns, max) {
-	var turns, lazyNumbers, theVal, theKey, oldMax, x;
+	var turns, lazyNumbers=[], theVal, theKey, oldMax, x;
 	while (turns > 0) {
 		if (theKey) delete countObject[theKey];
 		oldMax = 0;
